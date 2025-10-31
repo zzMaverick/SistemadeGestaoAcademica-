@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+    
+      - ./index.html:/usr/share/nginx/html/index.html:ro
+      - ./index.js:/usr/share/nginx/html/index.js:ro
+    container_name: gestao-academica-web
+    restart: unless-stopped
+
+  dev:
+    image: nginx:alpine
+    ports:
+      - "3000:80"
+    volumes:
+      - ./:/usr/share/nginx/html:ro
+    container_name: gestao-academica-dev
+    profiles:
+      - dev
